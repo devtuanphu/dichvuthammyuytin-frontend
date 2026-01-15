@@ -22,7 +22,7 @@ export async function fetchAPI(
     const token = process.env.NEXT_PUBLIC_STRAPI_TOKEN;
 
     const mergedOptions = {
-      next: { revalidate: 0 },
+      next: { revalidate: 60 },
       headers: {
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
