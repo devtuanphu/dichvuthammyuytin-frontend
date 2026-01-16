@@ -30,7 +30,7 @@ const siteConfig = {
   name: 'Thẩm Mỹ Vùng Kín Trần Điền',
   defaultDescription: 'Trung tâm thẩm mỹ vùng kín hàng đầu với đội ngũ bác sĩ chuyên môn cao, công nghệ hiện đại, cam kết an toàn và hiệu quả.',
   defaultTitle: 'Chuyên Nghiệp, Uy Tín, Bảo Mật',
-  url: 'https://thammyvungkin.vn',
+  url: 'https://dichvuthammyuytin.com',
   ogImage: '/image/og-image.jpg',
 };
 
