@@ -9,7 +9,8 @@ async function getNewsPageData() {
   const newsPage = await fetchAPI('/news-page', { pLevel: 5 });
   const articles = await fetchAPI('/articles', { 
     sort: ['publishedDate:desc'],
-    pagination: { pageSize: 100 }
+    pagination: { pageSize: 100 },
+    populate: ['featured_image']
   });
 
   return {
@@ -44,7 +45,7 @@ export default async function NewsPage() {
     title: 'Bạn cần tư vấn thêm?',
     description: 'Liên hệ ngay với chúng tôi để được bác sĩ tư vấn miễn phí',
   };
-
+  console.log(articles);
   return (
     <div>
       {/* Hero Section */}
