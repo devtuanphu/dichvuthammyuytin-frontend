@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/Button';
-import { ArrowRight, Calendar, User } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { constructMetadata } from '@/lib/seo';
 import { fetchAPI, getStrapiMedia } from '@/lib/strapi';
 import { Metadata } from 'next';
+import { NewsPageClient } from '@/components/pages/NewsPageClient';
 
 async function getNewsPageData() {
   const newsPage = await fetchAPI('/news-page', { pLevel: 5 });
@@ -45,7 +46,7 @@ export default async function NewsPage() {
     title: 'Bạn cần tư vấn thêm?',
     description: 'Liên hệ ngay với chúng tôi để được bác sĩ tư vấn miễn phí',
   };
-  console.log(articles);
+
   return (
     <div>
       {/* Hero Section */}
@@ -60,71 +61,10 @@ export default async function NewsPage() {
         </div>
       </section>
 
-      {/* Articles Grid */}
+      {/* Articles Grid with Pagination */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {articles.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articles.map((article: any) => (
-                <Link 
-                  key={article.documentId} 
-                  href={`/${article.slug}`}
-                  className="group"
-                >
-                  <article className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    {/* Featured Image */}
-                    <div className="relative w-full h-48 bg-gradient-to-br from-[var(--primary-purple)]/20 to-[var(--primary-gold)]/20">
-                      {article.featured_image?.url ? (
-                        <img 
-                          src={getStrapiMedia(article.featured_image.url) || ''} 
-                          alt={article.title}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Calendar className="w-16 h-16 text-[var(--primary-purple)]/40" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6">
-                      <h2 className="text-xl font-bold text-[var(--foreground)] mb-3 group-hover:text-[var(--primary-purple)] transition-colors line-clamp-2">
-                        {article.title}
-                      </h2>
-                      
-                      <p className="text-[var(--gray-600)] mb-4 line-clamp-3">
-                        {article.excerpt}
-                      </p>
-
-                      {/* Meta */}
-                      <div className="flex items-center justify-between text-sm text-[var(--gray-600)]">
-                        <div className="flex items-center space-x-2">
-                          <User className="w-4 h-4" />
-                          <span>{article.author || 'Admin'}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{new Date(article.publishedDate).toLocaleDateString('vi-VN')}</span>
-                        </div>
-                      </div>
-
-                      {/* Read More */}
-                      <div className="mt-4 pt-4 border-t border-[var(--gray-200)]">
-                        <span className="text-[var(--primary-purple)] font-semibold group-hover:underline">
-                          Đọc thêm →
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <p className="text-xl text-[var(--gray-600)]">Chưa có bài viết nào</p>
-            </div>
-          )}
+          <NewsPageClient articles={articles} />
         </div>
       </section>
 
